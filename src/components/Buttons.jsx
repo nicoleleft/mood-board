@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-function Buttons({ handleAddImage }) {
+function Buttons({ handleAddImage, handleAddText, handleDownloadBoard  }) {
   const fileInputRef = useRef(null);
 
   const handleClick = () => {
@@ -23,8 +23,8 @@ function Buttons({ handleAddImage }) {
           ref={fileInputRef}
           onChange={handleAddImage}
         />
-            <button className='bg-pink-300 text-white p-2 rounded'>Add Text</button>
-            <button className='bg-pink-300 text-white p-2 rounded'>Download Board</button>
+            <button className='bg-pink-300 text-white p-2 rounded' onClick={handleAddText} >Add Text</button>
+            <button className='bg-pink-300 text-white p-2 rounded' onClick={handleDownloadBoard}>Download Board</button>
         </div>
     </>
   )

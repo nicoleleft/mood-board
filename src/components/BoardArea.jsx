@@ -1,24 +1,51 @@
-import React, { useRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import DraggableImage from './DraggableImage';
+import DraggableTextBlock from './DraggableTextBlock';
 
-function BoardArea({ images, setImages }) {
-  const boardRef = useRef(null);
+const BoardArea = forwardRef(({ images, setImages, textBlocks, setTextBlocks }, ref) => {
+  const boardRef = ref || useRef(null);
 
   const handleDragEnd = (event) => {
     const { active, delta } = event;
 
-    setImages(prev =>
-      prev.map(img =>
-        img.id === active.id
-          ? { ...img, x: img.x + delta.x, y: img.y + delta.y }
-          : img
-      )
-    );
+    // Handle image drag
+    if (active.data.current?.type === 'image') {
+      setImages((prevImages) =>
+        prevImages.map((img) =>
+          img.id === active.id
+            ? {
+                ...img,
+                x: img.x + delta.x,
+                y: img.y + delta.y,
+              }
+            : img
+        )
+      );
+    }
+
+    // Handle text block drag
+    if (active.data.current?.type === 'text') {
+      setTextBlocks((prevTextBlocks) =>
+        prevTextBlocks.map((block) =>
+          block.id === active.id
+            ? {
+                ...block,
+                x: block.x + delta.x,
+                y: block.y + delta.y,
+              }
+            : block
+        )
+      );
+    }
   };
 
-  const handleDeleteImage = (idToDelete) => {
-    setImages(prev => prev.filter(img => img.id !== idToDelete));
+  const handleDeleteImage = (id) => {
+    setImages((prev) => prev.filter((img) => img.id !== id));
+  };
+
+  const handleDeleteText = (id) => {
+    setTextBlocks((prev) => prev.filter((block) => block.id !== id));
   };
 
   return (
@@ -36,12 +63,24 @@ function BoardArea({ images, setImages }) {
             x={img.x}
             y={img.y}
             boundingRef={boardRef}
-            onDelete={handleDeleteImage}
+            onDelete={() => handleDeleteImage(img.id)}
+          />
+        ))}
+
+        {textBlocks.map((block) => (
+          <DraggableTextBlock
+            key={block.id}
+            id={block.id}
+            text={block.text}
+            x={block.x}
+            y={block.y}
+            boundingRef={boardRef}
+            onDelete={() => handleDeleteText(block.id)}
           />
         ))}
       </div>
     </DndContext>
   );
-}
+});
 
 export default BoardArea;
