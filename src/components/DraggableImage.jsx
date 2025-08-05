@@ -1,20 +1,26 @@
-import { useDraggable } from '@dnd-kit/core';
-import { restrictToParentElement } from '@dnd-kit/modifiers';
-import { CSS } from '@dnd-kit/utilities';
+import { useDraggable } from "@dnd-kit/core";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
+import { CSS } from "@dnd-kit/utilities";
 
 function DraggableImage({ id, src, x, y, onDelete }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
     modifiers: [restrictToParentElement],
+    data: {
+      type: "image",
+    },
   });
 
+  // Compute live position during drag
+  const translateX = transform?.x ?? 0;
+  const translateY = transform?.y ?? 0;
+
   const style = {
-    position: 'absolute',
-    top: y,
-    left: x,
-    transform: CSS.Translate.toString(transform),
-    cursor: 'move',
-    touchAction: 'none',
+    position: "absolute",
+    top: y + translateY,
+    left: x + translateX,
+    cursor: "move",
+    touchAction: "none",
   };
 
   return (

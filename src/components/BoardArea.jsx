@@ -55,6 +55,7 @@ const BoardArea = forwardRef(({ images, setImages, textBlocks, setTextBlocks }, 
         id="board-area"
         className="relative bg-white h-[600px] rounded-lg border border-pink-300 p-4 m-10 overflow-hidden"
       >
+
         {images.map((img) => (
           <DraggableImage
             key={img.id}

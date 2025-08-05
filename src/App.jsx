@@ -24,17 +24,19 @@ function App() {
     }
   };
 
-  const handleAddText = () => {
-    const content = prompt("Enter your text:");
-    if (content) {
-      const newTextBlock = {
-        id: crypto.randomUUID(),
-        content,
-        x: 100,
-        y: 100,
-      };
-      setTextBlocks(prev => [...prev, newTextBlock]);
-    }
+  // ✅ Add text block with user input
+  const handleAddTextBlock = () => {
+    const userText = prompt('Enter your text:');
+    if (!userText || userText.trim() === '') return;
+
+    const newTextBlock = {
+      id: crypto.randomUUID(),
+      text: userText.trim(),
+      x: 50,
+      y: 50,
+    };
+
+    setTextBlocks((prev) => [...prev, newTextBlock]);
   };
 
   const handleDownloadBoard = async () => {
@@ -61,10 +63,10 @@ function App() {
 
   return (
     <div>
-      <h4 className='font-bold'>moodboard-it</h4>
+      <h4 className='font-bold p-5'>moodboard-it</h4>
       <Buttons 
         handleAddImage={handleAddImage} 
-        handleAddText={handleAddText} 
+        handleAddTextBlock={handleAddTextBlock} 
         handleDownloadBoard={handleDownloadBoard} 
       />
       <BoardArea
