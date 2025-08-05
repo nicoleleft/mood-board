@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #ffd1dc;
+  background-image:
+    radial-gradient(circle at 20% 30%, white 0%, transparent 30%),
+    radial-gradient(circle at 70% 20%, #fff 0%, transparent 25%),
+    radial-gradient(circle at 40% 70%, white 0%, transparent 35%),
+    radial-gradient(circle at 80% 80%, #fff 0%, transparent 30%);
+  background-size: cover;
+  background-repeat: no-repeat;
+}

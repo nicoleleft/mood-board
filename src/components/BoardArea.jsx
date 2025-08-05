@@ -53,7 +53,7 @@ const BoardArea = forwardRef(({ images, setImages, textBlocks, setTextBlocks }, 
       <div
         ref={boardRef}
         id="board-area"
-        className="relative bg-pink-100 h-[600px] rounded-lg border border-pink-300 p-4 m-10 overflow-hidden"
+        className="relative bg-white h-[600px] rounded-lg border border-pink-300 p-4 m-10 overflow-hidden"
       >
         {images.map((img) => (
           <DraggableImage

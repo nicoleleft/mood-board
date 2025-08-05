@@ -61,7 +61,7 @@ function App() {
 
   return (
     <div>
-      <h4 className='font-bold'>moodboard.it</h4>
+      <h4 className='font-bold'>moodboard-it</h4>
       <Buttons 
         handleAddImage={handleAddImage} 
         handleAddText={handleAddText} 
